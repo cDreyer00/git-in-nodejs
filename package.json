@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/cDreyer00/git-in-nodejs/issues"
   },
-  "homepage": "https://github.com/cDreyer00/git-in-nodejs#readme"
+  "homepage": "https://github.com/cDreyer00/git-in-nodejs#readme",
+  "dependencies": {
+    "simple-git": "^3.16.0"
+  }
 }

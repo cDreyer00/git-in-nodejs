@@ -6,7 +6,7 @@ class GitController {
     /**
  * Creates a git repository instance
  *
- * @params   {repoPath, branch}
+ * @gitOptions   {repoPath: String, branch: String}
  */
     constructor(gitOptions) {
         const { repoPath, branch } = gitOptions;
