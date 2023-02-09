@@ -1,0 +1,20 @@
+{
+  "name": "git-in-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./gitController/gitController.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cDreyer00/git-in-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cDreyer00/git-in-nodejs/issues"
+  },
+  "homepage": "https://github.com/cDreyer00/git-in-nodejs#readme"
+}
