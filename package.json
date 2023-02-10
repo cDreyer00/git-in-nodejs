@@ -1,8 +1,8 @@
 {
   "name": "git-in-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./gitController/gitController.js",
   "scripts": {
     "start": "node ./gitController/gitController.js"
   },

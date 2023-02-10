@@ -1,13 +1,12 @@
 const { simpleGit, SimpleGit, SimpleGitOptions, GitResponseError } = require('simple-git');
 
-
 class GitController {
 
     /**
- * Creates a git repository instance
- *
- * @gitOptions   {repoPath: String, branch: String}
- */
+     * Creates a git repository instance
+     *
+     * @gitOptions   {repoPath: String, branch: String}
+     */
     constructor(gitOptions) {
         const { repoPath, branch } = gitOptions;
 
@@ -19,31 +18,35 @@ class GitController {
         };
 
         let sg = simpleGit(options)
-
+        
         this.gitConfig = {
             repo: sg,
             branch: branch,
             baseDir: sg.baseDir
         };
-    }
 
+    }
 
     async commitItem(message, itemPath) {
         await this.gitConfig.repo.add(itemPath);
-        await this.gitConfig.repo.commit(message);
+        return await this.gitConfig.repo.commit(message);
     }
 
     async commitAll(message) {
         await this.gitConfig.repo.add("./");
-        await this.gitConfig.repo.commit(message);
+        return await this.gitConfig.repo.commit(message);
     }
 
     async push() {
-        await this.gitConfig.repo.push("origin", this.gitConfig.branch)
+        return await this.gitConfig.repo.push("origin", this.gitConfig.branch)
     }
 
     async pull() {
-        await this.gitConfig.repo.pull("origin", this.gitConfig.branch)
+        return await this.gitConfig.repo.pull("origin", this.gitConfig.branch)
+    }
+
+    async status() {
+        return await this.gitConfig.repo.status()
     }
 
 }
