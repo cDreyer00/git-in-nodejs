@@ -51,18 +51,18 @@ class GitController {
         return await this.gitConfig.repo.status()
     }
 
-    async clone(repoURL) {
-        await this.gitConfig.repo.clone(repoURL, this.gitConfig.baseDir)
+    static async clone(destPath, repoURL) {
+        await simpleGit().clone(repoURL, destPath)
+        // await this.gitConfig.repo.clone(repoURL, destPath)
 
         const options = {
-            baseDir: this.gitConfig.repoPath,
+            baseDir: destPath,
             binary: 'git',
             maxConcurrentProcesses: 6,
             trimmed: false,
         };
-
-        this.gitConfig.repo = await simpleGit(options)
-        return this.gitConfig.repo
+        let repo = await simpleGit(options)
+        return repo;
     }
 
 }
