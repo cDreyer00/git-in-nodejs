@@ -8,21 +8,23 @@ class GitController {
      * @gitOptions   {repoPath: String, branch: String}
      */
     constructor(gitOptions) {
-        const { repoPath, branch } = gitOptions;
+
+        if (!gitOptions.branch || !gitOptions.repoPath) {
+            throw new Error("Wrong gitOptions format")
+        }
 
         const options = {
-            baseDir: repoPath,
+            baseDir: gitOptions.repoPath,
             binary: 'git',
             maxConcurrentProcesses: 6,
             trimmed: false,
         };
 
         let sg = simpleGit(options)
-        
+
         this.gitConfig = {
             repo: sg,
-            branch: branch,
-            baseDir: sg.baseDir
+            gitOptions
         };
 
     }
@@ -50,32 +52,19 @@ class GitController {
     }
 
     async clone(repoURL) {
-        return await this.gitConfig.repo.clone(repoURL, this.gitConfig.baseDir)
+        await this.gitConfig.repo.clone(repoURL, this.gitConfig.baseDir)
+
+        const options = {
+            baseDir: this.gitConfig.repoPath,
+            binary: 'git',
+            maxConcurrentProcesses: 6,
+            trimmed: false,
+        };
+
+        this.gitConfig.repo = await simpleGit(options)
+        return this.gitConfig.repo
     }
 
 }
-
-// async function execute(repoPath) {
-//     const options = {
-//         baseDir: repoPath,
-//         binary: 'git',
-//         maxConcurrentProcesses: 6,
-//         trimmed: false,
-//     };
-
-//     let res;
-//     let repo = simpleGit(options);
-
-//     await repo.add(".");
-//     await repo.commit("commit from nodejs");
-//     await repo.push("origin", "main");
-
-//     repo = simpleGit(options_B);
-//     console.log("pulling into repo-B");
-//     res = await repo.pull("origin", "main");
-
-//     console.log("Done");
-
-// }
 
 module.exports = GitController
