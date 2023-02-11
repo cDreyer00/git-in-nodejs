@@ -49,6 +49,10 @@ class GitController {
         return await this.gitConfig.repo.status()
     }
 
+    async clone(repoURL) {
+        return await this.gitConfig.repo.clone(repoURL, this.gitConfig.baseDir)
+    }
+
 }
 
 // async function execute(repoPath) {
