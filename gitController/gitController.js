@@ -51,9 +51,8 @@ class GitController {
         return await this.gitConfig.repo.status()
     }
 
-    static async clone(destPath, repoURL) {
+    static async clone(destPath, branch, repoURL) {
         await simpleGit().clone(repoURL, destPath)
-        // await this.gitConfig.repo.clone(repoURL, destPath)
 
         const options = {
             baseDir: destPath,
@@ -61,8 +60,12 @@ class GitController {
             maxConcurrentProcesses: 6,
             trimmed: false,
         };
-        let repo = await simpleGit(options)
-        return repo;
+
+        
+        await simpleGit(options)
+
+        const gc = new GitController({ repoPath: destPath, branch: branch })
+        return gc;
     }
 
 }
